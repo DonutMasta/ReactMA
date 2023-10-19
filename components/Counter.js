@@ -1,29 +1,25 @@
 import React from "react";
-import { useState, useEffect } from "react";
+
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
-const Counter = ({ resetEnabled, onCountChanged }) => {
-  const [cnt, setCnt] = useState(0);
-
+const Counter = ({ resetEnabled, onCountChanged, count }) => {
   const decrement = () => {
-    setCnt(cnt - 1);
+    notifyCountChanged(count - 1);
   };
 
   const increment = () => {
-    setCnt(cnt + 1);
+    notifyCountChanged(count + 1);
   };
 
   const reset = () => {
-    if (resetEnabled) setCnt(0);
+    if (resetEnabled) notifyCountChanged((count = 0));
   };
-  const notifyCountChanged = () => {
+  const notifyCountChanged = (cnt) => {
     if (onCountChanged !== undefined) {
       onCountChanged(cnt);
     }
   };
-  useEffect(() => {
-    notifyCountChanged();
-  }, [cnt]);
+
   return (
     <View style={styles.containerView}>
       <TouchableOpacity onPress={decrement} onLongPress={reset}>
@@ -35,7 +31,7 @@ const Counter = ({ resetEnabled, onCountChanged }) => {
           <Text>-</Text>
         </View>
       </TouchableOpacity>
-      <Text style={styles.textView}>{cnt}</Text>
+      <Text style={styles.textView}>{count}</Text>
       <TouchableOpacity onPress={increment}>
         <View style={styles.button}>
           <Text>+</Text>

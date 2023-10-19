@@ -1,22 +1,21 @@
-import React from "react";
+import { React, useState } from "react";
 import { View, Button, StyleSheet } from "react-native";
 import Counter from "../components/Counter";
 
 const HomeScreen = ({ navigation }) => {
-  let currentCount = 0;
+  const [currentCount, setCurrentCount] = useState(0);
   const showDetails = () => {
     navigation.push("Details", { count: currentCount });
-    console.log("show details");
   };
 
   const countChanged = (cnt) => {
     console.log("the current count is ", cnt);
-    currentCount = cnt;
+    setCurrentCount(cnt);
   };
 
   return (
     <View style={styles.containerView}>
-      <Counter onCountChanged={countChanged} />
+      <Counter onCountChanged={countChanged} count={currentCount} />
       <Button onPress={showDetails} title="Go to Details" />
     </View>
   );
