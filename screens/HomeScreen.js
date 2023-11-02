@@ -2,8 +2,11 @@ import { React, useState, useEffect } from "react";
 import { View, Button, StyleSheet, AppState } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Counter from "../components/Counter";
+import { useCountContext } from "../contexts/CountContext";
 
 const HomeScreen = ({ navigation }) => {
+  const { count, setCount } = useCountContext();
+
   const load = async () => {
     try {
       const cnt = await AsyncStorage.getItem("currentCount");

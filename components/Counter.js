@@ -1,23 +1,21 @@
 import React from "react";
 
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { useCountContext } from "../contexts/CountContext";
 
-const Counter = ({ resetEnabled, onCountChanged, count }) => {
+const Counter = ({ resetEnabled }) => {
+  const { count, setCount } = useCountContext();
+
   const decrement = () => {
-    notifyCountChanged(count - 1);
+    setCount(count - 1);
   };
 
   const increment = () => {
-    notifyCountChanged(count + 1);
+    setCount(count + 1);
   };
 
   const reset = () => {
-    if (resetEnabled) notifyCountChanged((count = 0));
-  };
-  const notifyCountChanged = (cnt) => {
-    if (onCountChanged !== undefined) {
-      onCountChanged(cnt);
-    }
+    if (resetEnabled) setCount(0);
   };
 
   return (
